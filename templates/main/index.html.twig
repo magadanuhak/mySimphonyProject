@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Dashboard! {% endblock %}
+
+{% block body %}
+
+<div class="container ">
+    <h1>Dashboard  <a href="/logout" class="btn-danger btn">Logout</a></h1>
+    <hr style=" border:1px solid rgba(0,0,0,0.77) ">
+    <div class="card">
+        <div class="card-header">
+            Customer
+        </div>
+        <div class="card-body">
+            {{ form_start(form_customer,{ 'attr': {'autocomplete': 'off'} }) }}
+                <div class="form-group">
+                    {{ form_label(form_customer.email) }}
+                    {{ form_widget(form_customer.email, { 'value' : user.getEmail()} ) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form_customer.name) }}
+                    {{ form_widget(form_customer.name, { 'value' : user.getName()}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form_customer.address) }}
+                    {{ form_widget(form_customer.address, { 'value' : user.getAddress()})}}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form_customer.city) }}
+                    {{ form_widget(form_customer.city, { 'value' : user.getCity()}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form_customer.country) }}
+                    {{ form_widget(form_customer.country, { 'value' : user.getCountry()}) }}
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            {{ form_end(form_customer) }}
+
+        </div>
+    </div>
+    <section class="passenger card ">
+        <h5 class="card-header">Passengers</h5>
+        <div class="card-body">
+            {%  if passengers %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">Passport</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="passengers">
+                        {% for passenger in passengers %}
+                            <tr>
+                                <th scope="row">{{ passenger.Title }}</th>
+                                <td>{{ passenger.FirstName }}</td>
+                                <td>{{ passenger.Surname }}</td>
+                                <td>{{ passenger.Passport }}</td>
+                                <td><button class="btn-danger btn deleteBtn" data-id="{{ passenger.id }}">Delete</button></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="alert-danger alert" role="alert">
+                    No Passengers
+                </p>
+            {% endif %}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPassenger">
+                Add a passenger
+            </button>
+        </div>
+    </section>
+    <hr>
+    <section class="trip card ">
+        <h5 class="card-header">Trips</h5>
+        <div clas="card-body">
+        {%  if trips %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Departure Airport</th>
+                    <th scope="col">Destination Airport</th>
+                    <th scope="col">Departure Time</th>
+                    <th scope="col">Arrival Time</th>
+                    <th scope="col">Passengers</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody id="trips">
+                {% for trip in trips %}
+                    <tr>
+                        <th scope="row">{{ trip.DepartureAirport }}</th>
+                        <td>{{ trip.DestinationAirport }}</td>
+                        <td>{{   trip.DepartureDateTime|date('Y-m-d H:i:s') }}</td>
+                        <td>{{   trip.ArrivalDateTime|date('Y-m-d H:i:s') }}</td>
+                        <td>
+                           {{ trip.Passengers }}
+                        </td>
+                        <td><button class="btn-danger btn deleteBtn" data-id="{{ trip.id }}">Delete</button></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="alert-danger alert" role="alert">
+               No Trips
+            </p>
+        {% endif %}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTrip">
+            Add a trip
+        </button>
+        </div>
+    </section>
+
+
+    <div class="modal fade" id="addPassenger" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Passenger</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form,{ 'attr': {'autocomplete': 'off'} }) }}
+                    <div class="form-group">
+                        {{ form_label(form.Title) }}
+                        {{ form_widget(form.Title ) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.FirstName) }}
+                        {{ form_widget(form.FirstName) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.Surname) }}
+                        {{ form_widget(form.Surname)}}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.Passport) }}
+                        {{ form_widget(form.Passport) }}
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addTrip" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Trip</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form_trip,{ 'attr': {'autocomplete': 'off'} }) }}
+                    <div class="form-group">
+                        {{ form_label(form_trip.DepartureAirport) }}
+                        {{ form_widget(form_trip.DepartureAirport ) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form_trip.DestinationAirport) }}
+                        {{ form_widget(form_trip.DestinationAirport ) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form_trip.DepartureDateTime) }}
+                        {{ form_widget(form_trip.DepartureDateTime ) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form_trip.ArrivalDateTime) }}
+                        {{ form_widget(form_trip.ArrivalDateTime ) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form_trip.Passengers) }}
+                        {{ form_widget(form_trip.Passengers ) }}
+                        <small id="passengerHelp" class="form-text text-muted">Press CTRL and click for multiple select.</small>
+                    </div>
+                    {{ form_end(form_trip) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

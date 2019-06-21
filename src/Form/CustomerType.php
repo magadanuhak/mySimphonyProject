@@ -16,23 +16,45 @@ class CustomerType extends AbstractType
         $builder
             ->add('email', TextType::class,
                 [
-                    'attr' => ['class' =>'form-control']
+                    'attr' => [
+                        'class' =>'form-control',
+                        'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                        'maxlength' => 254
+                    ],
+                    'required' => false
+
                 ])
             ->add('name',TextType::class,
                 [
-                    'attr' => ['class' =>'form-control']
+                    'attr' => [
+                        'class' =>'form-control',
+                        'maxlength' => 254
+                    ],
+                    'required' => false
                 ])
             ->add('address',TextType::class,
                 [
-                    'attr' => ['class' =>'form-control']
+                    'attr' => [
+                        'class' =>'form-control',
+                        'maxlength' => 254
+                    ],
+                    'required' => false
                 ])
             ->add('city',TextType::class,
                 [
-                    'attr' => ['class' =>'form-control']
+                    'attr' => [
+                        'class' =>'form-control',
+                        'maxlength' => 254
+                    ],
+                    'required' => false
                 ])
             ->add('country',TextType::class,
                 [
-                    'attr' => ['class' =>'form-control']
+                    'attr' => [
+                        'class' =>'form-control',
+                        'maxlength' => 254
+                    ],
+                    'required' => false
                 ])
         ;
     }

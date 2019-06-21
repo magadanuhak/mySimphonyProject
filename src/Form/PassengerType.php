@@ -23,25 +23,33 @@ class PassengerType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'maxlength' => 255
+                    'maxlength' => 5,
+                    'minlength' => 3
+                ],
 
-                ]
             ])
             ->add('FirstName', TextType::class,
                  [
-                    'attr' => ['class' => 'form-control',
-                        'maxlength' => 255]
+                    'attr' => [
+                        'class' => 'form-control',
+                        'maxlength' => 254,
+                        'minlength' => 3
+                    ]
                 ])
             ->add('Surname', TextType::class, [
-                'attr' => ['class' => 'form-control',
-                    'maxlength' => 255]
+                'attr' => [
+                    'class' => 'form-control',
+                    'maxlength' => 254,
+                    'minlength' => 3
+                ]
             ])
             ->add('Passport', NumberType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'maxlength' => '10',
-                    'type' => 'number'
-                ]
+                    'max' => 9999999999,
+                    'min' => 100
+                ],
+                'html5' => true
             ]) ->add('add', SubmitType::class, [
                 'label' => 'Add Passenger',
                 'attr' => ['class' => 'btn btn-primary']

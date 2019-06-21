@@ -21,7 +21,10 @@
             <script src="js/datetime-picker.js"></script>
             <script>
                 jQuery(document).ready(function() {
-                    $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii', autoclose: true})
+                    $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii', autoclose: true});
+                    $(".readonly").on('keydown paste', function(e){
+                        e.preventDefault();
+                    });
                 });
             </script>
         {% endblock %}

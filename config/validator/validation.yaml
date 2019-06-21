@@ -1,0 +1,64 @@
+App\Entity\Passenger:
+  properties:
+    Title:
+      - NotBlank: ~
+      - Length:
+          min: 1
+          max: 5
+
+    FirstName:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 254
+          minMessage: 'Your first name must be at least {{ limit }} characters long'
+          maxMessage: 'Your first name must be longer than {{ limit }} characters'
+    Surname:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 254
+          minMessage: 'Your surname must be at least {{ limit }} characters long'
+          maxMessage: 'Your surname must be longer than {{ limit }} characters'
+    Passport:
+      - NotBlank: ~
+      - Type:
+          type: integer
+      - Length:
+          min: 3
+          max: 10
+          minMessage: 'Your passport must be at least {{ limit }} characters long'
+          maxMessage: 'Your passport must be longer than {{ limit }} characters'
+App\Entity\Trip:
+  properties:
+    DepartureAirport:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 3
+          minMessage: 'Your Departure Airport must be at least {{ limit }} characters long'
+          maxMessage: 'Your Departure Airport must be longer than {{ limit }} characters'
+    DestinationAirport:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 3
+          minMessage: 'Your Destination Airport must be at least {{ limit }} characters long'
+          maxMessage: 'Your Destination Airport must be longer than {{ limit }} characters'
+App\Entity\User:
+  properties:
+    email:
+      - Length:
+          max: 254
+    name:
+      - Length:
+          max: 254
+    address:
+      - Length:
+          max: 254
+    city:
+      - Length:
+          max: 254
+    country:
+      - Length:
+          max: 254

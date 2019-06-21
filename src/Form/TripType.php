@@ -22,23 +22,33 @@ class TripType extends AbstractType
             ->add('DepartureAirport',TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'maxlength' => 3
+                    'maxlength' => 3,
+                    'minlength' => 3,
+                    'pattern' => '[A-Za-z]{3}'
                 ]
             ])
             ->add('DestinationAirport',TextType::class, [
-                'attr' => ['class' => 'form-control',
-                            'maxlength' => 3
+                'attr' => [
+                    'class' => 'form-control',
+                    'maxlength' => 3,
+                    'minlength' => 3,
+                    'pattern' => '[A-Za-z]{3}'
+
                 ]
             ])
             ->add('DepartureDateTime', DateTimeType::class, [
                 'widget' => 'single_text',
-                'attr' => ['class' => 'form-control form_datetime'],
+                'attr' => [
+                    'class' => 'form-control form_datetime readonly'
+                ],
                 'html5' => false
 
             ])
             ->add('ArrivalDateTime', DateTimeType::class, [
                 'widget' => 'single_text',
-                'attr' => ['class' => 'form-control form_datetime'],
+                'attr' => [
+                    'class' => 'form-control form_datetime readonly'
+                ],
                 'html5' => false
             ])
             ->add('Passengers', EntityType::class, [
@@ -50,11 +60,12 @@ class TripType extends AbstractType
                 'choice_value' => function(Passenger $passenger) {
                     return $passenger->getTitle() . " " . $passenger->getSurname() . " " . $passenger->getFirstName();
                 },
-//                'expanded' => true,
+//It doesn't work - it makes passengers as checkboxes   'expanded' => true,
                 'multiple'  => true
             ]) ->add('add', SubmitType::class, [
                 'label' => 'Add Trip',
                 'attr' => ['class' => 'btn btn-primary']
+
             ])
         ;
     }
